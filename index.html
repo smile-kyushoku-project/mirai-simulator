@@ -524,22 +524,55 @@
     word-break: keep-all;
     overflow-wrap: anywhere;
   }
-  .sdg-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+  .sdg-badge {
+    display: inline-block;
+    background: var(--terra-pale);
+    border: 1px solid #ecc6ba;
+    color: #b85c46;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 2px 16px;
+    margin-bottom: 10px;
+  }
+  .sdg-list {
+    display: flex;
+    flex-direction: column;
     gap: 10px;
-    max-width: 480px;
+    max-width: 540px;
     margin: 0 auto;
   }
-  @media (max-width: 420px) { .sdg-grid { grid-template-columns: repeat(2, 1fr); } }
-  .sdg-tile {
-    border-radius: 10px;
-    color: #fff;
-    padding: 10px 8px 12px;
+  .sdg-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: var(--cream);
+    border-radius: 12px;
+    padding: 12px 16px;
     text-align: left;
   }
-  .sdg-tile .sdg-no { font-size: 1.15rem; font-weight: 700; line-height: 1.2; }
-  .sdg-tile .sdg-t { font-size: 0.68rem; font-weight: 700; line-height: 1.5; }
+  .sdg-chip {
+    flex-shrink: 0;
+    width: 46px; height: 46px;
+    border-radius: 9px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.1;
+  }
+  .sdg-chip .n { font-size: 1.05rem; font-weight: 700; }
+  .sdg-chip .y { font-size: 0.5rem; font-weight: 700; opacity: 0.9; }
+  .sdg-body .sdg-t { font-size: 0.85rem; font-weight: 700; color: var(--ink); }
+  .sdg-body .sdg-d {
+    font-size: 0.78rem;
+    line-height: 1.85;
+    color: var(--ink-soft);
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
   .sdg-2  { background: #d3a02e; }
   .sdg-3  { background: #4C9F38; }
   .sdg-6  { background: #4fa8c5; }
@@ -1212,15 +1245,52 @@
 
     <!-- SDGs -->
     <div class="sdg-box fade-section">
+      <span class="sdg-badge">2030年までの世界共通目標</span>
       <h3>SDGsへの貢献</h3>
-      <p class="sdg-lead">未来給食は、国連の持続可能な開発目標(SDGs)のうち、<br class="sp">特に6つの目標につながっています。</p>
-      <div class="sdg-grid">
-        <div class="sdg-tile sdg-2"><div class="sdg-no">2</div><div class="sdg-t">飢餓をゼロに</div></div>
-        <div class="sdg-tile sdg-3"><div class="sdg-no">3</div><div class="sdg-t">すべての人に健康と福祉を</div></div>
-        <div class="sdg-tile sdg-6"><div class="sdg-no">6</div><div class="sdg-t">安全な水とトイレを世界中に</div></div>
-        <div class="sdg-tile sdg-12"><div class="sdg-no">12</div><div class="sdg-t">つくる責任 つかう責任</div></div>
-        <div class="sdg-tile sdg-13"><div class="sdg-no">13</div><div class="sdg-t">気候変動に具体的な対策を</div></div>
-        <div class="sdg-tile sdg-15"><div class="sdg-no">15</div><div class="sdg-t">陸の豊かさも守ろう</div></div>
+      <p class="sdg-lead">SDGsは、世界が2030年までに達成を目指す目標です。<br class="sp">残された時間は、もう長くありません。<br>未来給食は、特に6つの目標につながっています。</p>
+      <div class="sdg-list">
+        <div class="sdg-row">
+          <div class="sdg-chip sdg-2"><span class="n">2</span><span class="y">2030</span></div>
+          <div class="sdg-body">
+            <div class="sdg-t">飢餓をゼロに</div>
+            <div class="sdg-d">世界の穀物の約3分の1は家畜の飼料に。植物性の給食は、食べものを人に直接とどける選択です。</div>
+          </div>
+        </div>
+        <div class="sdg-row">
+          <div class="sdg-chip sdg-3"><span class="n">3</span><span class="y">2030</span></div>
+          <div class="sdg-body">
+            <div class="sdg-t">すべての人に健康と福祉を</div>
+            <div class="sdg-d">野菜・豆・穀物が中心の一食は、子どもたちの生涯にわたる健康的な食習慣の土台になります。</div>
+          </div>
+        </div>
+        <div class="sdg-row">
+          <div class="sdg-chip sdg-6"><span class="n">6</span><span class="y">2030</span></div>
+          <div class="sdg-body">
+            <div class="sdg-t">安全な水とトイレを世界中に</div>
+            <div class="sdg-d">世界では今も約20億人が安全な水を使えません。給食1食の選択が、大切な水を未来にのこします。</div>
+          </div>
+        </div>
+        <div class="sdg-row">
+          <div class="sdg-chip sdg-12"><span class="n">12</span><span class="y">2030</span></div>
+          <div class="sdg-body">
+            <div class="sdg-t">つくる責任 つかう責任</div>
+            <div class="sdg-d">何をつくり、何を食べるか。給食は、子どもたちが毎日体験できるいちばん身近な「消費の学び」です。</div>
+          </div>
+        </div>
+        <div class="sdg-row">
+          <div class="sdg-chip sdg-13"><span class="n">13</span><span class="y">2030</span></div>
+          <div class="sdg-body">
+            <div class="sdg-t">気候変動に具体的な対策を</div>
+            <div class="sdg-d">世界の温室効果ガスの約3分の1は食に関わるもの。食の選択は、子どもにもできる気候変動対策です。</div>
+          </div>
+        </div>
+        <div class="sdg-row">
+          <div class="sdg-chip sdg-15"><span class="n">15</span><span class="y">2030</span></div>
+          <div class="sdg-body">
+            <div class="sdg-t">陸の豊かさも守ろう</div>
+            <div class="sdg-d">世界の農地の約8割は畜産のために使われています。植物性の一食は、土地を森や自然に還す一歩です。</div>
+          </div>
+        </div>
       </div>
       <p class="sdg-note">学校・自治体のSDGs教育や総合的な学習の時間とも接続できます。</p>
     </div>

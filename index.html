@@ -395,6 +395,44 @@
     margin: 18px auto;
   }
 
+  /* ───────────── intro card ───────────── */
+  .intro-card {
+    background: var(--paper);
+    border: 1.5px solid var(--green-soft);
+    border-radius: var(--radius);
+    padding: 28px 30px;
+    margin-bottom: 44px;
+  }
+  @media (max-width: 480px) { .intro-card { padding: 24px 20px; } }
+  .intro-card .intro-title {
+    display: block;
+    text-align: center;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--green-deep);
+    letter-spacing: 0.08em;
+    margin-bottom: 14px;
+  }
+  .intro-card p {
+    font-size: 0.9rem;
+    line-height: 2.1;
+    color: var(--ink);
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+  .intro-card p + p { margin-top: 12px; }
+  .intro-card .hl {
+    font-weight: 700;
+    color: var(--green-deep);
+    background: linear-gradient(transparent 62%, #dcebd2 62%);
+  }
+  .intro-card .intro-note {
+    margin-top: 14px;
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+  }
+
   /* ───────────── choice message ───────────── */
   .choice-block {
     text-align: center;
@@ -696,6 +734,14 @@
 <div class="dots">・・・・・・・・・</div>
 
 <div class="wrap">
+
+  <!-- ─────────────── intro: what is mirai kyushoku ─────────────── -->
+  <div class="intro-card">
+    <span class="intro-title">「未来給食」ってなに?</span>
+    <p>月に1回、動物性の食材を使わずに、<span class="hl">100%植物性の食材</span>でつくる給食です。特定原材料28品目も使わないので、アレルギーのある子も、宗教や家庭の方針がちがう子も、<wbr>みんなが同じ食卓を囲めます。</p>
+    <p>そして植物性の給食は、水・大地・気候への負担が小さい、<span class="hl">地球にやさしい一食</span>でもあります。だからこそ、子どもたちの「選べる未来」の選択肢に、この一食を加えたいと考えています。</p>
+    <p class="intro-note">韓国・アメリカ・ポルトガルなど、<wbr>世界でも広がっています(くわしくは結果のあとで)</p>
+  </div>
 
   <!-- ─────────────── input steps ─────────────── -->
   <div class="sec-head">

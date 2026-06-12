@@ -499,6 +499,54 @@
     color: var(--ink-soft);
   }
 
+  /* ───────────── SDGs ───────────── */
+  .sdg-box {
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius);
+    padding: 26px 26px 22px;
+    margin-bottom: 44px;
+    text-align: center;
+  }
+  .sdg-box h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+  .sdg-box .sdg-lead {
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    line-height: 2;
+    margin-bottom: 18px;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+  .sdg-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  @media (max-width: 420px) { .sdg-grid { grid-template-columns: repeat(2, 1fr); } }
+  .sdg-tile {
+    border-radius: 10px;
+    color: #fff;
+    padding: 10px 8px 12px;
+    text-align: left;
+  }
+  .sdg-tile .sdg-no { font-size: 1.15rem; font-weight: 700; line-height: 1.2; }
+  .sdg-tile .sdg-t { font-size: 0.68rem; font-weight: 700; line-height: 1.5; }
+  .sdg-2  { background: #d3a02e; }
+  .sdg-3  { background: #4C9F38; }
+  .sdg-6  { background: #4fa8c5; }
+  .sdg-12 { background: #BF8B2E; }
+  .sdg-13 { background: #3F7E44; }
+  .sdg-15 { background: #5aa84f; }
+  .sdg-note { font-size: 0.72rem; color: var(--ink-soft); margin-top: 14px; }
+
   /* ───────────── world examples ───────────── */
   .world-card {
     display: flex;
@@ -1160,6 +1208,21 @@
       </div>
     </div>
 
+    <!-- SDGs -->
+    <div class="sdg-box fade-section">
+      <h3>SDGsへの貢献</h3>
+      <p class="sdg-lead">未来給食は、国連の持続可能な開発目標(SDGs)のうち、<br class="sp">特に6つの目標につながっています。</p>
+      <div class="sdg-grid">
+        <div class="sdg-tile sdg-2"><div class="sdg-no">2</div><div class="sdg-t">飢餓をゼロに</div></div>
+        <div class="sdg-tile sdg-3"><div class="sdg-no">3</div><div class="sdg-t">すべての人に健康と福祉を</div></div>
+        <div class="sdg-tile sdg-6"><div class="sdg-no">6</div><div class="sdg-t">安全な水とトイレを世界中に</div></div>
+        <div class="sdg-tile sdg-12"><div class="sdg-no">12</div><div class="sdg-t">つくる責任 つかう責任</div></div>
+        <div class="sdg-tile sdg-13"><div class="sdg-no">13</div><div class="sdg-t">気候変動に具体的な対策を</div></div>
+        <div class="sdg-tile sdg-15"><div class="sdg-no">15</div><div class="sdg-t">陸の豊かさも守ろう</div></div>
+      </div>
+      <p class="sdg-note">学校・自治体のSDGs教育や総合的な学習の時間とも接続できます。</p>
+    </div>
+
     <!-- world examples -->
     <div class="sec-head fade-section">
       <span class="sec-title"><span class="sec-num">5</span><span class="sec-text">世界では、<br class="sp">「<span class="kw">選べる給食</span>」が<br class="sp">広がっています</span></span>
@@ -1305,6 +1368,11 @@
   <h2>未来給食が育てる価値</h2>
   <div class="rp-values">
     <span>健康</span><span>多様性</span><span>環境</span><span>思いやり</span><span>日本の食文化</span><span>食育</span>
+  </div>
+
+  <h2>SDGsへの貢献</h2>
+  <div class="rp-values">
+    <span>2 飢餓をゼロに</span><span>3 健康と福祉</span><span>6 安全な水</span><span>12 つくる責任つかう責任</span><span>13 気候変動への対策</span><span>15 陸の豊かさ</span>
   </div>
 
   <p class="rp-note">本レポートの数値は、公表されている環境研究をもとにした教育用の概算です(1食あたり 水約200L・温室効果ガス約0.8kg・土地約15㎡の節約と仮定)。実際の効果は献立や地域によって異なります。</p>

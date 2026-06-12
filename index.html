@@ -604,6 +604,8 @@
     line-height: 1.3;
     color: #fff;
   }
+  .world-flag.jp1 { background: #5e8c52; }
+  .world-flag.jp2 { background: #d9775f; }
   .world-flag.kr { background: #7da7b5; }
   .world-flag.us { background: #8a7aa8; }
   .world-flag.pt { background: #dd9a4e; }
@@ -714,6 +716,125 @@
     letter-spacing: 0.08em;
   }
   .shojin-years small { font-size: 0.78rem; font-weight: 500; color: var(--ink-soft); }
+
+  /* ───────────── assurance (nutrition & cost) ───────────── */
+  .assure-box {
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius);
+    padding: 30px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 480px) { .assure-box { padding: 24px 18px; } }
+  .assure-box h3 {
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--green-deep);
+    text-align: center;
+    letter-spacing: 0.1em;
+    margin-bottom: 18px;
+  }
+  .assure-quote {
+    text-align: center;
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 2;
+    margin-bottom: 6px;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+  .assure-quote .aq { color: var(--terra); }
+  .assure-sub {
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    line-height: 2;
+    margin-bottom: 18px;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+  .assure-note {
+    background: var(--cream);
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-size: 0.8rem;
+    line-height: 2;
+    color: var(--ink-soft);
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+  .benefit-cols { display: flex; gap: 14px; }
+  @media (max-width: 540px) { .benefit-cols { flex-direction: column; } }
+  .benefit-col {
+    flex: 1;
+    background: var(--cream);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .benefit-col h4 {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--green-deep);
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  .benefit-col ul { list-style: none; }
+  .benefit-col li {
+    font-size: 0.8rem;
+    line-height: 1.9;
+    color: var(--ink-soft);
+    padding-left: 16px;
+    position: relative;
+    margin-bottom: 6px;
+  }
+  .benefit-col li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0.62em;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--green-soft);
+  }
+
+  /* ───────────── FAQ ───────────── */
+  .faq-box { margin-bottom: 44px; }
+  .faq-box details {
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .faq-box summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 16px 20px;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--ink);
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+  .faq-box summary::-webkit-details-marker { display: none; }
+  .faq-box summary .q-mark {
+    flex-shrink: 0;
+    color: var(--terra);
+    font-weight: 700;
+  }
+  .faq-box details[open] summary { border-bottom: 1.5px dashed var(--line); }
+  .faq-box .faq-a {
+    padding: 14px 20px 18px 42px;
+    font-size: 0.84rem;
+    line-height: 2.05;
+    color: var(--ink-soft);
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+  .faq-box .faq-a b { color: var(--green-deep); }
 
   /* ───────────── about ───────────── */
   .about {
@@ -1359,12 +1480,28 @@
 
     <!-- world examples -->
     <div class="sec-head fade-section">
-      <span class="sec-title"><span class="sec-num">5</span><span class="sec-text">世界では、<br class="sp">「<span class="kw">選べる給食</span>」が<br class="sp">広がっています</span></span>
+      <span class="sec-title"><span class="sec-num">5</span><span class="sec-text">日本でも世界でも、<br class="sp">「<span class="kw">選べる給食</span>」が<br class="sp">始まっています</span></span>
       <div class="sec-dotline"></div>
-      <div class="sec-sub">〜 日本のすこし先をゆく、世界の学校たち 〜</div>
+      <div class="sec-sub">〜 すこし先をゆく、学校たち 〜</div>
     </div>
 
     <div class="fade-section">
+      <div class="world-card">
+        <div class="world-flag jp1">東京都</div>
+        <div class="world-body">
+          <h4>八王子市立浅川小学校(2021年)</h4>
+          <span class="w-why">きっかけ: 誰も置き去りにしない食卓</span>
+          <p>公立小学校で、動物性食材を使わない月1回の「エブリワン給食」を実施。アレルギーや宗教にかかわらず、全員が同じ給食を「おいしいね」と楽しみました。</p>
+        </div>
+      </div>
+      <div class="world-card">
+        <div class="world-flag jp2">千葉県</div>
+        <div class="world-body">
+          <h4>匝瑳市・市内全13の小中学校(2026年)</h4>
+          <span class="w-why">きっかけ: 地域の歴史と食文化の教育</span>
+          <p>市制20周年を記念して、市内すべての小中学校で精進料理の給食を一斉に提供。食育動画とあわせて、地域の歴史を学ぶ機会になりました。</p>
+        </div>
+      </div>
       <div class="world-card">
         <div class="world-flag kr">韓国</div>
         <div class="world-body">
@@ -1397,8 +1534,57 @@
       <h3>じつは、日本の伝統でもあります</h3>
       <p>植物性の食事は、日本人にとって<wbr>新しいものではありません。<br class="pc">飛鳥時代の675年、天皇の命により<wbr>牛や馬などの肉食が禁じられて以来、<br class="pc">明治時代に解禁されるまで──</p>
       <span class="shojin-years">約1200年<small> ものあいだ</small></span>
-      <p>日本では肉を避ける食文化が<wbr>受け継がれてきました。<br class="pc">その中で育まれたのが、<span class="sj-em">精進料理</span>です。<br class="pc">豆腐やお麩、昆布や椎茸のおだし──<br class="sp">その知恵は、いまの和食にも生きています。</p>
+      <p>日本では肉を避ける食文化が<wbr>受け継がれてきました。<br class="pc">その中で育まれたのが、<span class="sj-em">精進料理</span>です。<br class="pc"><span class="sj-em">命を奪わない、食べものを無駄にしない</span>──<br class="sp">自然の恵みに感謝するその心は、<br class="sp">豆腐やお麩、昆布や椎茸のおだしとともに、<br class="sp">いまの和食にも生きています。</p>
       <p>未来給食は、この日本の伝統の知恵を、<br class="sp">子どもたちの未来につなぐ取り組みでもあります。</p>
+    </div>
+
+    <!-- nutrition assurance -->
+    <div class="assure-box fade-section">
+      <h3>栄養のこと、ご安心ください</h3>
+      <p class="assure-quote">必要なのは“お肉”そのものではなく、<br class="sp"><span class="aq">タンパク質</span>。</p>
+      <p class="assure-sub">大豆や豆類は、子どもの成長に必要な<wbr>良質なタンパク源です。</p>
+      <p class="assure-quote">必要なのは“牛乳”そのものではなく、<br class="sp"><span class="aq">カルシウム</span>。</p>
+      <p class="assure-sub">小松菜やひじき、お豆腐にも、<wbr>カルシウムは豊富に含まれています。</p>
+      <div class="assure-note">アメリカ・カナダ・イギリスの栄養士の専門家団体も、「きちんと計画された植物性の食事は、成長期を含むあらゆる年代で健康的」という見解を発表しています。お肉や牛乳を否定する話ではありません。月に1回、栄養の取り方の選択肢を少しだけ広げる──それだけのことなのです。国内の実施校でも、学校給食の栄養基準を満たす献立で提供されています。</div>
+    </div>
+
+    <!-- soy meat benefits -->
+    <div class="assure-box fade-section">
+      <h3>大豆ミートという、たのもしい味方</h3>
+      <div class="benefit-cols">
+        <div class="benefit-col">
+          <h4>子どもたちに</h4>
+          <ul>
+            <li>カレーやハンバーグなど、いつもの定番メニューがそのまま作れる</li>
+            <li>お肉にはほとんどない食物繊維がとれる</li>
+            <li>実際の小学校では、子どもたちが気づかず「おいしい」と完食</li>
+          </ul>
+        </div>
+        <div class="benefit-col">
+          <h4>給食の現場に</h4>
+          <ul>
+            <li>精肉より安価な場合が多く、食材費を抑えられる</li>
+            <li>乾燥品は常温で長期保存でき、在庫管理が楽</li>
+            <li>生肉のような厳格な温度管理・交差汚染対策が不要</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq-box fade-section">
+      <details>
+        <summary><span class="q-mark">Q.</span>子どもに無理に食べさせることになりませんか?</summary>
+        <div class="faq-a">いいえ。私たちが目指しているのは<b>「選べること」</b>です。希望制(食べるかどうかを子どもや家庭が選べる形)から始めることができます。アレルギーや宗教上の理由で「自分だけ別メニュー」だった子が、みんなと同じものを選べるようになる日でもあります。</div>
+      </details>
+      <details>
+        <summary><span class="q-mark">Q.</span>特定の考え方の押し付けになりませんか?</summary>
+        <div class="faq-a">未来給食の目的は、<b>誰もが安心して食べられる給食</b>と、食から世界を考える<b>食育</b>です。学習指導要領が掲げる「多様な他者の価値を尊重する」学びを、給食という生活の場で実践するものであり、特定の食生活をすすめるものではありません。</div>
+      </details>
+      <details>
+        <summary><span class="q-mark">Q.</span>おいしくないのでは?子どもが残しませんか?</summary>
+        <div class="faq-a">献立は、カレーやハンバーグ、麻婆豆腐など<b>子どもが大好きな定番メニュー</b>が中心です。実際に導入した小学校では、子どもたちはお肉との違いに気づかず「おいしい、おいしい」と食べたと報告されています。</div>
+      </details>
     </div>
 
     <!-- about -->
@@ -1545,14 +1731,35 @@ const LINKS = {
 };
 const SITE_URL = 'https://smile-kyushoku-project.github.io/mirai-kyushoku/';
 
+// ── Analytics (GoatCounter) ──
+// 無料アカウント作成後、エンドポイントURLを設定すると計測が始まります
+// 例: 'https://smile-kyushoku.goatcounter.com/count'
+const ANALYTICS = '';
+
+window.addEventListener('DOMContentLoaded', () => {
+  if (!ANALYTICS) return;
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://gc.zgo.at/count.js';
+  s.dataset.goatcounter = ANALYTICS;
+  document.head.appendChild(s);
+});
+
+// クリックイベント計測(ANALYTICS設定時のみ送信される)
+function trackEvent(name) {
+  if (window.goatcounter && window.goatcounter.count) {
+    window.goatcounter.count({ path: name, title: name, event: true });
+  }
+}
+
 let state = { students: 500, freq: 1, period: 12, school: '' };
 let results = null;
 
 // show CTA buttons that have links configured
 window.addEventListener('DOMContentLoaded', () => {
-  if (LINKS.site)      { const a = document.getElementById('cta-site');  a.href = LINKS.site; a.style.display = ''; }
-  if (LINKS.instagram) { const a = document.getElementById('cta-insta'); a.href = LINKS.instagram; a.style.display = ''; }
-  if (LINKS.email)     { const a = document.getElementById('cta-mail');  a.href = 'mailto:' + LINKS.email; a.style.display = ''; }
+  if (LINKS.site)      { const a = document.getElementById('cta-site');  a.href = LINKS.site; a.style.display = ''; a.addEventListener('click', () => trackEvent('cta-site')); }
+  if (LINKS.instagram) { const a = document.getElementById('cta-insta'); a.href = LINKS.instagram; a.style.display = ''; a.addEventListener('click', () => trackEvent('cta-instagram')); }
+  if (LINKS.email)     { const a = document.getElementById('cta-mail');  a.href = 'mailto:' + LINKS.email; a.style.display = ''; a.addEventListener('click', () => trackEvent('cta-mail')); }
 });
 
 // ── Formatting ─────────────────────────────────────────────
@@ -1589,6 +1796,7 @@ document.querySelectorAll('#period-pills .pill').forEach(p => {
 
 // ── Step 3: peek into the future ───────────────────────────
 function peekFuture() {
+  trackEvent('simulate');
   state.students = parseInt(document.getElementById('students').value) || 500;
   state.school = (document.getElementById('school-name').value || '').trim();
   const meals = state.students * state.freq * state.period;
@@ -1717,6 +1925,7 @@ function buildReport() {
 
 function printReport() {
   if (!results) return;
+  trackEvent('report-print');
   window.print();
 }
 
@@ -1750,6 +1959,7 @@ function roundRect(ctx, x, y, w, h, r) {
 
 function shareCard() {
   if (!results) return;
+  trackEvent('share-card');
   const r = results;
   const W = 1080, H = 1080;
   const cv = document.createElement('canvas');

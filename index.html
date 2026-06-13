@@ -237,6 +237,49 @@
   .go-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #b85c46; }
   .go-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #b85c46; }
 
+  /* ── student slider (touch to play) ── */
+  .slider-wrap { padding-left: 46px; margin-top: 16px; }
+  @media (max-width: 480px) { .slider-wrap { padding-left: 0; } }
+  .slider-wrap input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    max-width: 320px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--green-pale);
+    outline: none;
+    cursor: pointer;
+  }
+  .slider-wrap input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--green);
+    border: 4px solid var(--paper);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+    cursor: pointer;
+    transition: transform 0.1s;
+  }
+  .slider-wrap input[type=range]::-webkit-slider-thumb:active { transform: scale(1.18); }
+  .slider-wrap input[type=range]::-moz-range-thumb {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--green);
+    border: 4px solid var(--paper);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+    cursor: pointer;
+  }
+  .slider-hint {
+    margin-top: 8px;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    min-height: 1.4em;
+    transition: color 0.2s;
+  }
+  .slider-hint b { color: var(--green-deep); font-weight: 700; }
+
   /* ───────────── future scene ───────────── */
   #future-scene { display: none; }
 
@@ -363,7 +406,7 @@
     gap: 12px;
   }
   .compare-chip {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 8px;
     border: 1.5px dashed var(--line);
@@ -372,8 +415,77 @@
     font-size: 0.85rem;
     color: var(--ink-soft);
     background: var(--paper);
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, transform 0.1s;
   }
-  .compare-chip b { color: var(--ink); font-weight: 700; }
+  .compare-chip:hover { border-color: var(--green-soft); }
+  .compare-chip.revealed {
+    cursor: default;
+    border-style: solid;
+    border-color: var(--green-soft);
+    background: var(--green-pale);
+  }
+  .compare-chip .cc-q { color: var(--green); font-weight: 700; }
+  .compare-chip b {
+    color: var(--ink);
+    font-weight: 700;
+    display: inline-block;
+  }
+  .compare-chip.revealed b { animation: chipPop 0.4s ease; }
+  @keyframes chipPop {
+    0% { opacity: 0; transform: scale(0.7); }
+    60% { transform: scale(1.12); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  /* ── collapsible fold card (もっと見る) ── */
+  .fold {
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius);
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+  .fold > summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 22px 26px;
+    text-align: center;
+    position: relative;
+  }
+  .fold > summary::-webkit-details-marker { display: none; }
+  .fold > summary .fold-title {
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--green-deep);
+    letter-spacing: 0.08em;
+  }
+  .fold > summary .fold-teaser {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+  .fold > summary .fold-cue {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--green);
+    border: 1.5px solid var(--green-soft);
+    border-radius: 999px;
+    padding: 4px 20px;
+  }
+  .fold[open] > summary .fold-cue { display: none; }
+  .fold > summary .fold-cue::after { content: ' ▾'; }
+  .fold-inner { padding: 4px 26px 28px; }
+  @media (max-width: 480px) {
+    .fold > summary { padding: 20px 18px; }
+    .fold-inner { padding: 4px 18px 24px; }
+  }
 
   /* ───────────── reflection ───────────── */
   .reflection {
@@ -1010,7 +1122,11 @@
         <input type="number" id="students" value="500" min="1" max="10000">
         <span class="num-suffix">人の子どもたち</span>
       </div>
-      <div class="num-input-row" style="margin-top:12px">
+      <div class="slider-wrap">
+        <input type="range" id="students-slider" min="0" max="46" value="20" aria-label="子どもの人数">
+        <div class="slider-hint" id="slider-hint">つまみを動かすと、人数を選べます</div>
+      </div>
+      <div class="num-input-row" style="margin-top:16px">
         <input type="text" id="school-name" placeholder="学校・園の名前(任意)" style="width:240px;padding:10px 14px;border:1.5px solid var(--line);border-radius:12px;font-size:0.9rem;font-family:inherit;color:var(--ink);background:var(--paper)">
       </div>
     </div>
@@ -1538,38 +1654,50 @@
       <p>未来給食は、この日本の伝統の知恵を、<br class="sp">子どもたちの未来につなぐ取り組みでもあります。</p>
     </div>
 
-    <!-- nutrition assurance -->
-    <div class="assure-box fade-section">
-      <h3>栄養のこと、ご安心ください</h3>
-      <p class="assure-quote">必要なのは“お肉”そのものではなく、<br class="sp"><span class="aq">タンパク質</span>。</p>
-      <p class="assure-sub">大豆や豆類は、子どもの成長に必要な<wbr>良質なタンパク源です。</p>
-      <p class="assure-quote">必要なのは“牛乳”そのものではなく、<br class="sp"><span class="aq">カルシウム</span>。</p>
-      <p class="assure-sub">小松菜やひじき、お豆腐にも、<wbr>カルシウムは豊富に含まれています。</p>
-      <div class="assure-note">アメリカ・カナダ・イギリスの栄養士の専門家団体も、「きちんと計画された植物性の食事は、成長期を含むあらゆる年代で健康的」という見解を発表しています。お肉や牛乳を否定する話ではありません。月に1回、栄養の取り方の選択肢を少しだけ広げる──それだけのことなのです。国内の実施校でも、学校給食の栄養基準を満たす献立で提供されています。</div>
-    </div>
+    <!-- nutrition assurance (collapsible) -->
+    <details class="fold fade-section">
+      <summary>
+        <span class="fold-title">栄養のこと、ご安心ください</span>
+        <span class="fold-teaser">必要なのは“お肉”ではなく、タンパク質。海外の栄養士団体の見解も。</span>
+        <span class="fold-cue">くわしく見る</span>
+      </summary>
+      <div class="fold-inner">
+        <p class="assure-quote">必要なのは“お肉”そのものではなく、<br class="sp"><span class="aq">タンパク質</span>。</p>
+        <p class="assure-sub">大豆や豆類は、子どもの成長に必要な<wbr>良質なタンパク源です。</p>
+        <p class="assure-quote">必要なのは“牛乳”そのものではなく、<br class="sp"><span class="aq">カルシウム</span>。</p>
+        <p class="assure-sub">小松菜やひじき、お豆腐にも、<wbr>カルシウムは豊富に含まれています。</p>
+        <div class="assure-note">アメリカ・カナダ・イギリスの栄養士の専門家団体も、「きちんと計画された植物性の食事は、成長期を含むあらゆる年代で健康的」という見解を発表しています。お肉や牛乳を否定する話ではありません。月に1回、栄養の取り方の選択肢を少しだけ広げる──それだけのことなのです。国内の実施校でも、学校給食の栄養基準を満たす献立で提供されています。</div>
+      </div>
+    </details>
 
-    <!-- soy meat benefits -->
-    <div class="assure-box fade-section">
-      <h3>大豆ミートという、たのもしい味方</h3>
-      <div class="benefit-cols">
-        <div class="benefit-col">
-          <h4>子どもたちに</h4>
-          <ul>
-            <li>カレーやハンバーグなど、いつもの定番メニューがそのまま作れる</li>
-            <li>お肉にはほとんどない食物繊維がとれる</li>
-            <li>実際の小学校では、子どもたちが気づかず「おいしい」と完食</li>
-          </ul>
-        </div>
-        <div class="benefit-col">
-          <h4>給食の現場に</h4>
-          <ul>
-            <li>精肉より安価な場合が多く、食材費を抑えられる</li>
-            <li>乾燥品は常温で長期保存でき、在庫管理が楽</li>
-            <li>生肉のような厳格な温度管理・交差汚染対策が不要</li>
-          </ul>
+    <!-- soy meat benefits (collapsible) -->
+    <details class="fold fade-section">
+      <summary>
+        <span class="fold-title">大豆ミートという、たのもしい味方</span>
+        <span class="fold-teaser">子どもにも、給食の現場にも。うれしいことがいくつもあります。</span>
+        <span class="fold-cue">くわしく見る</span>
+      </summary>
+      <div class="fold-inner">
+        <div class="benefit-cols">
+          <div class="benefit-col">
+            <h4>子どもたちに</h4>
+            <ul>
+              <li>カレーやハンバーグなど、いつもの定番メニューがそのまま作れる</li>
+              <li>お肉にはほとんどない食物繊維がとれる</li>
+              <li>実際の小学校では、子どもたちが気づかず「おいしい」と完食</li>
+            </ul>
+          </div>
+          <div class="benefit-col">
+            <h4>給食の現場に</h4>
+            <ul>
+              <li>精肉より安価な場合が多く、食材費を抑えられる</li>
+              <li>乾燥品は常温で長期保存でき、在庫管理が楽</li>
+              <li>生肉のような厳格な温度管理・交差汚染対策が不要</li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
+    </details>
 
     <!-- FAQ -->
     <div class="faq-box fade-section">
@@ -1807,6 +1935,104 @@ document.querySelectorAll('#period-pills .pill').forEach(p => {
   });
 });
 
+// ── Student slider (touch to play) ─────────────────────────
+const SLIDER_STEPS = [
+  10,20,30,40,50,60,70,80,90,100,120,140,160,180,200,250,300,350,400,450,
+  500,550,600,700,800,900,1000,1200,1400,1600,1800,2000,2500,3000,3500,
+  4000,4500,5000,6000,7000,8000,9000,10000
+];
+function sizeWord(n) {
+  if (n < 100)  return 'ちいさな園・学校くらい';
+  if (n < 300)  return '小学校くらいの人数';
+  if (n < 600)  return '中くらいの規模の学校';
+  if (n < 1000) return '大きめの学校';
+  if (n < 3000) return 'とても大きな学校';
+  return '地域ぐるみの取り組み';
+}
+(function () {
+  const slider = document.getElementById('students-slider');
+  const numInput = document.getElementById('students');
+  const hint = document.getElementById('slider-hint');
+  if (!slider) return;
+  slider.max = String(SLIDER_STEPS.length - 1);
+
+  function nearestIndex(v) {
+    let best = 0, bd = Infinity;
+    SLIDER_STEPS.forEach((s, i) => { const d = Math.abs(s - v); if (d < bd) { bd = d; best = i; } });
+    return best;
+  }
+  function updateHint(n) {
+    hint.innerHTML = `<b>${n.toLocaleString()}人</b>の学校 ── ${sizeWord(n)}`;
+  }
+  // slider drag → number
+  slider.addEventListener('input', () => {
+    const n = SLIDER_STEPS[parseInt(slider.value)];
+    numInput.value = n;
+    updateHint(n);
+  });
+  // number typing → slider
+  numInput.addEventListener('input', () => {
+    const n = parseInt(numInput.value) || 0;
+    slider.value = String(nearestIndex(n));
+    if (n > 0) updateHint(n);
+  });
+  // init
+  slider.value = String(nearestIndex(parseInt(numInput.value) || 500));
+  updateHint(parseInt(numInput.value) || 500);
+})();
+
+// ── Tap-to-reveal comparison chips ─────────────────────────
+document.addEventListener('click', (e) => {
+  const chip = e.target.closest('.compare-chip');
+  if (!chip || chip.classList.contains('revealed')) return;
+  const val = chip.dataset.value || '';
+  const q = chip.querySelector('.cc-q');
+  if (q) q.outerHTML = `<b>${val}</b>`;
+  chip.classList.add('revealed');
+  trackEvent('reveal-compare');
+});
+
+// ── Progressive reveal on scroll (IntersectionObserver) ────
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(en => {
+    if (en.isIntersecting) {
+      en.target.classList.add('shown');
+      // count-up any pending number inside this section, now that it's visible
+      const num = en.target.querySelector('.impact-numline[data-target]');
+      if (num && !num.dataset.done) runCountUp(num);
+      revealObserver.unobserve(en.target);
+    }
+  });
+}, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+
+// prepare a number to count up later (set initial state)
+function prepNum(containerId, label, target, unit) {
+  const el = document.getElementById(containerId);
+  el.dataset.label = label;
+  el.dataset.target = target;
+  el.dataset.unit = unit;
+  delete el.dataset.done;
+  el.innerHTML = `${label} <b>約0${unit}</b>`;
+}
+function runCountUp(el) {
+  el.dataset.done = '1';
+  const label = el.dataset.label, unit = el.dataset.unit, target = parseFloat(el.dataset.target);
+  const b = el.querySelector('b');
+  const dur = 1400, t0 = performance.now();
+  function tick(t) {
+    const p = Math.min((t - t0) / dur, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    b.textContent = `約${fmt(target * eased)}${unit}`;
+    if (p < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+// ── Track fold/FAQ opens ───────────────────────────────────
+document.querySelectorAll('.fold, .faq-box details').forEach(d => {
+  d.addEventListener('toggle', () => { if (d.open) trackEvent('open-detail'); });
+});
+
 // ── Step 3: peek into the future ───────────────────────────
 function peekFuture() {
   trackEvent('simulate');
@@ -1838,8 +2064,9 @@ function peekFuture() {
 }
 
 // ── Step 4: results ────────────────────────────────────────
+// chip starts hidden ("？") and reveals its value on tap — quiz-style discovery
 function chip(label, value) {
-  return `<span class="compare-chip">${label} <b>${value}</b></span>`;
+  return `<button type="button" class="compare-chip" data-value="${value}">${label} <span class="cc-q">？</span></button>`;
 }
 
 function periodLabel() {
@@ -1847,21 +2074,6 @@ function periodLabel() {
 }
 function freqLabel() {
   return state.freq === 1 ? '月に1回' : state.freq === 2 ? '月に2回' : '週に1回';
-}
-
-// gentle count-up inside a <b> element
-function animateNum(containerId, label, target, unit) {
-  const el = document.getElementById(containerId);
-  el.innerHTML = `${label} <b>約0${unit}</b>`;
-  const b = el.querySelector('b');
-  const dur = 1400, t0 = performance.now();
-  function tick(t) {
-    const p = Math.min((t - t0) / dur, 1);
-    const eased = 1 - Math.pow(1 - p, 3);
-    b.textContent = `約${fmt(target * eased)}${unit}`;
-    if (p < 1) requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
 }
 
 function showResults() {
@@ -1878,7 +2090,7 @@ function showResults() {
   const pools = r.water / POOL_L;
   document.getElementById('water-lead').innerHTML =
     `学校のプール<strong>約${fmtSoft(pools)}杯分</strong>にあたる水を、<br>未来へつなぐことができます。`;
-  animateNum('water-num', '水資源の節約', r.water, 'リットル');
+  prepNum('water-num', '水資源の節約', r.water, 'リットル');
   document.getElementById('water-compare').innerHTML =
     chip('おうちのお風呂', `約${fmt(r.water / BATH_L)}杯分`) +
     chip('500mlペットボトル', `約${fmt(r.water / BOTTLE_L)}本分`);
@@ -1887,7 +2099,7 @@ function showResults() {
   const yards = r.land / SCHOOLYARD_M2;
   document.getElementById('land-lead').innerHTML =
     `学校の校庭<strong>約${fmtSoft(yards)}個分</strong>の大地を、<br>森や自然のままにしておくことができます。`;
-  animateNum('land-num', '土地の節約', r.land, '㎡');
+  prepNum('land-num', '土地の節約', r.land, '㎡');
   document.getElementById('land-compare').innerHTML =
     chip('教室', `約${fmt(r.land / CLASSROOM_M2)}室分`) +
     chip('近所の公園', `約${fmtSoft(r.land / PARK_M2)}個分`);
@@ -1896,7 +2108,7 @@ function showResults() {
   const trees = r.co2 / TREE_KG_YR;
   document.getElementById('co2-lead').innerHTML =
     `木<strong>約${fmt(trees)}本</strong>が1年間かけて吸収する量の<br>温室効果ガスを、減らすことができます。`;
-  animateNum('co2-num', '温室効果ガスの削減', r.co2, 'kg');
+  prepNum('co2-num', '温室効果ガスの削減', r.co2, 'kg');
   document.getElementById('co2-compare').innerHTML =
     chip('家庭の電気の使用', `約${fmt(r.co2 / HOME_KG_DAY)}日分`);
 
@@ -1905,9 +2117,12 @@ function showResults() {
   res.style.display = 'block';
   res.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-  // staggered fade-in
-  const sections = res.querySelectorAll('.fade-section');
-  sections.forEach((el, i) => setTimeout(() => el.classList.add('shown'), 400 + i * 350));
+  // progressive reveal: each section fades in as it scrolls into view
+  res.querySelectorAll('.fade-section').forEach(el => {
+    el.classList.remove('shown');
+    revealObserver.unobserve(el);
+    revealObserver.observe(el);
+  });
 
   buildReport();
 }

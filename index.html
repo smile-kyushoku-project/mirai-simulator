@@ -1266,70 +1266,6 @@
       </div>
     </div>
 
-    <!-- ── 献立シミュレーター（新規追加） ── -->
-    <div class="step-block" id="menu-block">
-      <div class="step-label">
-        <span class="step-num">3</span>
-        <span class="step-q">好きな野菜や、地域の特産品を教えてください（任意）</span>
-      </div>
-      <div class="num-input-row" style="flex-direction:column;align-items:flex-start;gap:8px;">
-        <div style="display:flex;gap:10px;align-items:center;width:100%;">
-          <input
-            type="text"
-            id="ingredient-input"
-            placeholder="例：小松菜、れんこん、いちご"
-            maxlength="30"
-            style="width:100%;max-width:280px;padding:10px 14px;border:1.5px solid var(--line);border-radius:12px;font-size:0.95rem;font-family:inherit;color:var(--ink);background:var(--paper);transition:border-color 0.2s;"
-            oninput="previewMenu(this.value)"
-            onfocus="this.style.borderColor='var(--green-soft)'"
-            onblur="this.style.borderColor='var(--line)'"
-          >
-          <button
-            onclick="previewMenu(document.getElementById('ingredient-input').value)"
-            style="flex-shrink:0;background:var(--green-pale);border:1.5px solid var(--green-soft);border-radius:999px;padding:9px 20px;font-size:0.88rem;font-weight:700;font-family:inherit;color:var(--green-deep);cursor:pointer;">
-            献立を見る
-          </button>
-        </div>
-        <p style="font-size:0.75rem;color:var(--ink-soft);padding-left:2px;">
-          関東地方の特産品に対応しています（順次拡大予定）
-        </p>
-      </div>
-
-      <!-- 献立プレビュー表示エリア -->
-      <div id="menu-preview" style="display:none;opacity:0;transition:opacity 0.4s ease;margin-top:18px;background:var(--green-pale);border:1.5px solid var(--green-soft);border-radius:var(--radius);padding:22px 24px;">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
-          <span id="menu-prefecture" style="font-size:0.75rem;font-weight:700;color:var(--green-deep);background:var(--paper);border:1.5px solid var(--green-soft);border-radius:999px;padding:2px 14px;"></span>
-          <span style="font-size:0.88rem;font-weight:700;color:var(--green-deep);">の特産品を使った未来給食</span>
-        </div>
-        <p style="font-size:0.82rem;font-weight:700;color:var(--ink-soft);margin-bottom:10px;letter-spacing:0.08em;">本日の献立</p>
-        <ul id="menu-dishes" style="list-style:none;margin-bottom:14px;"></ul>
-        <p id="menu-comment" style="font-size:0.88rem;line-height:2;color:var(--ink);background:var(--paper);border-radius:10px;padding:12px 16px;"></p>
-        <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
-          <button
-            onclick="shareMenu()"
-            style="display:inline-flex;align-items:center;gap:6px;background:var(--terra);border:none;border-radius:999px;padding:9px 22px;font-size:0.85rem;font-weight:700;font-family:inherit;color:#fff;cursor:pointer;">
-            この献立をシェアする
-          </button>
-          <a href="mailto:japan@animalallianceasia.org?subject=未来給食の献立について相談したい"
-            style="display:inline-flex;align-items:center;gap:6px;background:var(--paper);border:1.5px solid var(--green-soft);border-radius:999px;padding:9px 22px;font-size:0.85rem;font-weight:700;font-family:inherit;color:var(--green-deep);text-decoration:none;cursor:pointer;">
-            学校に提案する
-          </a>
-        </div>
-        <p id="menu-source" style="font-size:0.68rem;color:var(--ink-soft);margin-top:12px;"></p>
-        <p style="font-size:0.68rem;color:var(--ink-soft);margin-top:4px;">
-          ※ この献立はイメージです。実際の提供にあたっては学校栄養士と相談の上、文部科学省の学校給食摂取基準に基づいた献立を作成してください。アレルギーのあるお子さんは個別にご確認ください。
-        </p>
-      </div>
-
-      <!-- 未対応の食材のとき -->
-      <div id="menu-notfound" style="display:none;margin-top:14px;padding:14px 18px;background:var(--cream-deep);border-radius:12px;">
-        <p style="font-size:0.85rem;color:var(--ink-soft);line-height:2;">
-          まだ対応していない食材です。対応地域を順次拡大しています。<br>
-          <span style="font-size:0.78rem;">あなたの地域の特産品をぜひ<a href="mailto:japan@animalallianceasia.org" style="color:var(--green-deep);">教えてください</a>。</span>
-        </p>
-      </div>
-    </div>
-
     <button class="go-btn" onclick="startSimulation()">未来をのぞいてみる</button>
   </div>
   <p style="text-align:center; font-size:0.8rem; color:var(--ink-soft); margin-top:14px;">結果は、学校でそのまま使える「未来給食レポート」として印刷・保存できます。</p>
@@ -1700,6 +1636,69 @@
       <div class="impact-numline" id="inclusion-num">—</div>
       <p class="inclusion-close">この子たちも、みんなと同じ給食を<wbr>「選べる」日が、<br class="sp">少しずつ増えていけたら。</p>
       <p class="inc-src">※ 食物アレルギー有病率の調査より(約5%)</p>
+    </div>
+
+    <!-- ── 献立シミュレーター（環境カード後） ── -->
+    <div class="sec-head fade-section" style="margin-top:44px">
+      <span class="sec-title terra">
+        <span class="sec-num" style="background:var(--terra)">▷</span>
+        <span class="sec-text">では、<span class="kw">どんな給食</span>が<br class="sp">できるでしょう？</span>
+      </span>
+      <div class="sec-dotline"></div>
+      <div class="sec-sub">〜 好きな野菜や地域の特産品を入れてみてください 〜</div>
+    </div>
+
+    <div class="card fade-section" id="menu-block">
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+        <input
+          type="text"
+          id="ingredient-input"
+          placeholder="例：小松菜、れんこん、いちご"
+          maxlength="30"
+          style="flex:1;min-width:180px;padding:10px 14px;border:1.5px solid var(--line);border-radius:12px;font-size:0.95rem;font-family:inherit;color:var(--ink);background:var(--paper);transition:border-color 0.2s;"
+          oninput="previewMenu(this.value)"
+          onfocus="this.style.borderColor='var(--green-soft)'"
+          onblur="this.style.borderColor='var(--line)'"
+        >
+        <button
+          onclick="previewMenu(document.getElementById('ingredient-input').value)"
+          style="flex-shrink:0;background:var(--terra);border:none;border-radius:999px;padding:11px 26px;font-size:0.92rem;font-weight:700;font-family:inherit;color:#fff;cursor:pointer;box-shadow:0 3px 0 #b85c46;">
+          献立を見る
+        </button>
+      </div>
+      <p style="font-size:0.75rem;color:var(--ink-soft);margin-top:10px;">
+        関東地方の特産品に対応しています（順次拡大予定）
+      </p>
+
+      <!-- 献立表示エリア -->
+      <div id="menu-preview" style="display:none;margin-top:18px;background:var(--green-pale);border:1.5px solid var(--green-soft);border-radius:var(--radius);padding:22px 24px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <span id="menu-prefecture" style="font-size:0.75rem;font-weight:700;color:var(--green-deep);background:var(--paper);border:1.5px solid var(--green-soft);border-radius:999px;padding:2px 14px;"></span>
+          <span style="font-size:0.88rem;font-weight:700;color:var(--green-deep);">の特産品を使った未来給食</span>
+        </div>
+        <p style="font-size:0.82rem;font-weight:700;color:var(--ink-soft);margin-bottom:10px;letter-spacing:0.08em;">本日の献立</p>
+        <ul id="menu-dishes" style="list-style:none;margin-bottom:14px;"></ul>
+        <p id="menu-comment" style="font-size:0.88rem;line-height:2;color:var(--ink);background:var(--paper);border-radius:10px;padding:12px 16px;"></p>
+        <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
+          <button onclick="shareMenu()" style="display:inline-flex;align-items:center;gap:6px;background:var(--terra);border:none;border-radius:999px;padding:9px 22px;font-size:0.85rem;font-weight:700;font-family:inherit;color:#fff;cursor:pointer;">
+            この献立をシェアする
+          </button>
+          <a href="mailto:japan@animalallianceasia.org?subject=未来給食の献立について相談したい"
+            style="display:inline-flex;align-items:center;background:var(--paper);border:1.5px solid var(--green-soft);border-radius:999px;padding:9px 22px;font-size:0.85rem;font-weight:700;font-family:inherit;color:var(--green-deep);text-decoration:none;">
+            学校に提案する
+          </a>
+        </div>
+        <p id="menu-source" style="font-size:0.68rem;color:var(--ink-soft);margin-top:12px;"></p>
+        <p style="font-size:0.68rem;color:var(--ink-soft);margin-top:4px;">※ この献立はイメージです。実際の提供にあたっては学校栄養士と相談の上、文部科学省の学校給食摂取基準に基づいた献立を作成してください。アレルギーのあるお子さんは個別にご確認ください。</p>
+      </div>
+
+      <!-- 未対応食材 -->
+      <div id="menu-notfound" style="display:none;margin-top:14px;padding:14px 18px;background:var(--cream-deep);border-radius:12px;">
+        <p style="font-size:0.85rem;color:var(--ink-soft);line-height:2;">
+          まだ対応していない食材です。対応地域を順次拡大しています。<br>
+          <span style="font-size:0.78rem;">あなたの地域の特産品を<a href="mailto:japan@animalallianceasia.org" style="color:var(--green-deep);">教えてください</a>。</span>
+        </p>
+      </div>
     </div>
 
     <!-- quick action CTA (after results) -->

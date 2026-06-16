@@ -318,6 +318,14 @@
     transition: color 0.2s;
   }
   .slider-hint b { color: var(--green-deep); font-weight: 700; }
+  .slider-note {
+    margin-top: 8px;
+    font-size: 0.76rem;
+    line-height: 1.8;
+    color: var(--ink-soft);
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
 
   /* ───────────── future scene ───────────── */
   #future-scene { display: none; margin-top: 48px; }
@@ -1247,6 +1255,7 @@
       <div class="slider-wrap">
         <input type="range" id="students-slider" min="1" max="2000" step="1" value="500" aria-label="子どもの人数">
         <div class="slider-hint" id="slider-hint">つまみを動かすと、人数を選べます</div>
+        <p class="slider-note">学校名や正確な人数がわからなくても、<wbr>だいたいの人数でシミュレーションできます。</p>
       </div>
       <div class="num-input-row" style="margin-top:16px">
         <input type="text" id="school-name" placeholder="学校・園の名前(任意)" style="width:240px;padding:10px 14px;border:1.5px solid var(--line);border-radius:12px;font-size:0.9rem;font-family:inherit;color:var(--ink);background:var(--paper)">

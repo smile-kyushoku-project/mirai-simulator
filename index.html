@@ -1877,7 +1877,10 @@
           <span id="menu-prefecture" style="font-size:0.75rem;font-weight:700;color:var(--green-deep);background:var(--paper);border:1.5px solid var(--green-soft);border-radius:999px;padding:2px 14px;"></span>
           <span style="font-size:0.88rem;font-weight:700;color:var(--green-deep);">の特産品を使った未来給食</span>
         </div>
-        <p style="font-size:0.82rem;font-weight:700;color:var(--ink-soft);margin-bottom:10px;letter-spacing:0.08em;">本日の献立</p>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;">
+          <p style="font-size:0.82rem;font-weight:700;color:var(--ink-soft);letter-spacing:0.08em;margin:0;">本日の献立</p>
+          <button id="menu-reroll" onclick="rerollMenu()" style="display:none;align-items:center;gap:5px;background:var(--paper);border:1.5px solid var(--green-soft);border-radius:999px;padding:5px 15px;font-size:0.78rem;font-weight:700;font-family:inherit;color:var(--green-deep);cursor:pointer;">↻ 別の献立</button>
+        </div>
         <ul id="menu-dishes" style="list-style:none;margin-bottom:14px;"></ul>
         <p id="menu-comment" style="font-size:0.88rem;line-height:2;color:var(--ink);background:var(--paper);border-radius:10px;padding:12px 16px;"></p>
         <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
@@ -2777,6 +2780,124 @@ const menuTemplates = [
   { keywords: ["すもも", "スモモ", "プラム"], prefecture: "山梨県", label: "すもも", dishes: ["すもも（デザート）", "かぼちゃのみそ汁", "大豆とごぼうの煮もの", "ごはん"], comment: "山梨県は全国一のすももの産地。甘ずっぱいすももは、夏の給食をさわやかに彩るデザート。", source: "農林水産省 作物統計 参考" }
 ];
 
+// ── 同じ食材でも献立にバリエーションを（label で対応づけ／153テンプレートは無改変）──
+const MENU_VARIANTS = {
+  "にんじん": [
+    ["にんじんとごぼうのきんぴら", "けんちん汁", "小松菜のおひたし", "麦ごはん"],
+    ["にんじんのグラッセ（植物性）", "大豆ともやしのみそ汁", "ひじきごはん", "果物"]
+  ],
+  "ほうれん草": [
+    ["ほうれん草の白和え（豆腐）", "のっぺい汁", "大豆の五目煮", "ごはん"],
+    ["ほうれん草とコーンのソテー", "豆乳スープ", "切り干し大根の煮物", "米粉パン"]
+  ],
+  "かぼちゃ": [
+    ["かぼちゃの煮もの", "呉汁", "ほうれん草のごま和え", "麦ごはん"],
+    ["かぼちゃの豆乳ポタージュ", "大豆コロッケ", "海藻サラダ", "コッペパン"]
+  ],
+  "なす": [
+    ["なすと大豆ミートの麻婆", "春雨スープ", "もやしのナムル", "ごはん"],
+    ["焼きなすの煮びたし", "豆腐のみそ汁", "きんぴらごぼう", "麦ごはん"]
+  ],
+  "ブロッコリー": [
+    ["ブロッコリーと大豆のサラダ", "ミネストローネ", "大豆コロッケ", "米粉パン"],
+    ["ブロッコリーのごまあえ", "豆乳コーンスープ", "ひじきの煮物", "ごはん"]
+  ],
+  "きゅうり": [
+    ["きゅうりと春雨の酢の物", "大豆ともやしのみそ汁", "大豆の五目煮", "ごはん"],
+    ["きゅうりの浅づけ", "のっぺい汁", "厚揚げの煮物", "麦ごはん"]
+  ],
+  "もやし": [
+    ["大豆ミートのビビンバ丼", "わかめスープ", "もやしと小松菜のナムル", "果物"],
+    ["もやしのごま和え", "豆腐のみそ汁", "切り干し大根の煮物", "ごはん"]
+  ],
+  "キャベツ": [
+    ["キャベツのコールスロー（豆乳マヨ）", "ミネストローネ", "大豆ミートのハンバーグ", "米粉パン"],
+    ["大豆ミートの回鍋肉風", "春雨スープ", "もやしのナムル", "ごはん"]
+  ],
+  "豆腐": [
+    ["豆腐ハンバーグ", "けんちん汁", "ほうれん草のごま和え", "麦ごはん"],
+    ["麻婆豆腐（大豆ミート）", "わかめスープ", "きゅうりの酢の物", "ごはん"]
+  ],
+  "じゃがいも（定番）": [
+    ["大豆ミートの肉じゃが風", "豆腐のみそ汁", "小松菜のおひたし", "ごはん"],
+    ["じゃがいもの豆乳ポタージュ", "大豆コロッケ", "コールスロー", "コッペパン"]
+  ],
+  "さつまいも（定番）": [
+    ["大学いも", "さつま汁（大豆ミート）", "ほうれん草のごま和え", "麦ごはん"],
+    ["さつまいもごはん", "豆腐のすまし汁", "ひじきの煮物", "果物"]
+  ],
+  "トマト": [
+    ["大豆ミートのトマト煮込み", "野菜スープ", "ブロッコリーサラダ", "米粉パン"],
+    ["トマトとなすのミネストローネ", "大豆コロッケ", "コールスロー", "コッペパン"]
+  ],
+  "ピーマン": [
+    ["ピーマンと大豆ミートのチンジャオロース風", "春雨スープ", "もやしのナムル", "ごはん"],
+    ["ピーマンの炒めもの", "豆腐のみそ汁", "ひじきの煮物", "麦ごはん"]
+  ],
+  "白菜": [
+    ["白菜と厚揚げのうま煮", "豆乳鍋風スープ", "ほうれん草のおひたし", "ごはん"],
+    ["白菜の浅づけ", "のっぺい汁", "大豆の五目煮", "麦ごはん"]
+  ],
+  "だいこん": [
+    ["大根と大豆ミートのそぼろ煮", "豆腐のみそ汁", "小松菜のごま和え", "ごはん"],
+    ["ふろふき大根", "呉汁", "ひじきの煮物", "麦ごはん"]
+  ],
+  "たまねぎ": [
+    ["大豆ミートのカレーライス", "海藻サラダ", "福神づけ", "果物"],
+    ["オニオンスープ（豆乳）", "大豆ミートのハンバーグ", "ブロッコリーサラダ", "米粉パン"]
+  ],
+  "米": [
+    ["わかめごはん", "豆腐のすまし汁", "大豆の五目煮", "ほうれん草のおひたし"],
+    ["きのこの炊き込みごはん", "けんちん汁", "小松菜のごま和え", "果物"]
+  ],
+  "大豆": [
+    ["大豆とひじきのまぜごはん", "豆腐のみそ汁", "切り干し大根の煮物", "果物"],
+    ["五目豆", "のっぺい汁", "ほうれん草のごま和え", "麦ごはん"]
+  ],
+  "レタス": [
+    ["レタスと大豆のサラダ", "ミネストローネ", "大豆コロッケ", "米粉パン"],
+    ["レタスとコーンの混ぜごはん", "豆乳コーンスープ", "大豆の五目煮", "果物"]
+  ],
+  "れんこん": [
+    ["れんこんのきんぴら", "けんちん汁", "大豆の五目煮", "麦ごはん"],
+    ["れんこんのいそべ揚げ", "豆腐のみそ汁", "小松菜のおひたし", "ごはん"]
+  ],
+  "じゃがいも": [
+    ["大豆ミートの肉じゃが風", "わかめのみそ汁", "小松菜のおひたし", "ごはん"],
+    ["大豆ミートのジャーマンポテト風", "豆乳コーンスープ", "コールスロー", "米粉パン"]
+  ],
+  "とうもろこし": [
+    ["コーンごはん", "豆腐のみそ汁", "ブロッコリーサラダ", "果物"],
+    ["コーンの豆乳チャウダー", "大豆コロッケ", "海藻サラダ", "コッペパン"]
+  ],
+  "りんご": [
+    ["りんごとキャベツのコールスロー", "ミネストローネ", "大豆ミートのハンバーグ", "米粉パン"],
+    ["焼きりんご", "かぼちゃの豆乳ポタージュ", "大豆の五目煮", "ごはん"]
+  ],
+  "いちご（とちおとめ）": [
+    ["いちご（デザート）", "大豆ミートのカレーライス", "海藻サラダ", "福神づけ"],
+    ["いちごの豆乳ムース", "野菜と豆のスープ", "ブロッコリーサラダ", "米粉パン"]
+  ]
+};
+
+let currentTemplate = null;
+
+function menuPool(t) { return [t.dishes].concat(MENU_VARIANTS[t.label] || []); }
+function pickDishes(t, avoid) {
+  const pool = menuPool(t);
+  if (pool.length === 1) return pool[0];
+  let pick;
+  do { pick = pool[Math.floor(Math.random() * pool.length)]; } while (avoid && pick === avoid);
+  return pick;
+}
+function renderMenuDishes(dishes) {
+  document.getElementById('menu-dishes').innerHTML = dishes.map(d =>
+    `<li style="font-size:0.92rem;font-weight:700;color:var(--green-deep);padding:5px 0 5px 18px;position:relative;">
+        <span style="position:absolute;left:0;top:6px;width:8px;height:8px;border-radius:50%;background:var(--green-soft);display:inline-block;"></span>
+        ${d}
+      </li>`).join('');
+}
+
 // 都道府県別・特産品チップデータ
 const prefectureSpecialties = {
   "北海道": ["じゃがいも", "とうもろこし", "昆布"],
@@ -3369,19 +3490,19 @@ function previewMenu(value) {
   }
 
   if (template) {
-    currentMenu = template;
+    // 同じ食材を入力中は献立を固定（キーストロークでチラつかせない）。食材が変わったらランダムに選び直す
+    const same = currentTemplate && currentTemplate.label === template.label && currentTemplate.prefecture === template.prefecture;
+    const dishes = (same && currentMenu) ? currentMenu.dishes : pickDishes(template);
+    currentTemplate = template;
+    currentMenu = Object.assign({}, template, { dishes });
+
     document.getElementById('menu-prefecture').textContent = template.prefecture;
-
-    const ul = document.getElementById('menu-dishes');
-    ul.innerHTML = template.dishes.map(d =>
-      `<li style="font-size:0.92rem;font-weight:700;color:var(--green-deep);padding:5px 0 5px 18px;position:relative;">
-        <span style="position:absolute;left:0;top:6px;width:8px;height:8px;border-radius:50%;background:var(--green-soft);display:inline-block;"></span>
-        ${d}
-      </li>`
-    ).join('');
-
+    renderMenuDishes(dishes);
     document.getElementById('menu-comment').textContent = template.comment;
     document.getElementById('menu-source').textContent = '参考：' + template.source;
+
+    const reroll = document.getElementById('menu-reroll');
+    reroll.style.display = (MENU_VARIANTS[template.label] && MENU_VARIANTS[template.label].length) ? 'inline-flex' : 'none';
 
     notfound.style.display = 'none';
     preview.style.display = 'block';
@@ -3392,18 +3513,28 @@ function previewMenu(value) {
     preview.style.display = 'none';
     preview.style.opacity = 0;
     notfound.style.display = 'block';
+    document.getElementById('menu-reroll').style.display = 'none';
     currentMenu = null;
+    currentTemplate = null;
   }
+}
+
+// 「↻ 別の献立」: いま表示中の食材で、別のバリエーションに切り替える
+function rerollMenu() {
+  if (!currentTemplate) return;
+  const dishes = pickDishes(currentTemplate, currentMenu && currentMenu.dishes);
+  currentMenu = Object.assign({}, currentTemplate, { dishes });
+  renderMenuDishes(dishes);
+  trackEvent('menu-reroll');
 }
 
 // ── 献立シェア ──
 function shareMenu() {
-  const ingredient = document.getElementById('ingredient-input').value;
-  const template = findMenuTemplate(ingredient);
-  if (!template) return;
+  const m = currentMenu || findMenuTemplate(document.getElementById('ingredient-input').value);
+  if (!m) return;
   trackEvent('menu-share');
 
-  const text = `【未来給食の献立シミュレーター】\n${template.prefecture}の特産品「${template.label}」を使った100%植物性の給食献立を作ってみました！\n\n${template.dishes.join(' / ')}\n\n${template.comment}\n\nあなたの地域の献立も試してみてください👇\nhttps://smile-kyushoku-project.github.io/mirai-kyushoku/`;
+  const text = `【未来給食の献立シミュレーター】\n${m.prefecture}の「${m.label}」を使った100%植物性の給食献立を作ってみました！\n\n${m.dishes.join(' / ')}\n\n${m.comment}\n\nあなたの地域の献立も試してみてください👇\nhttps://smile-kyushoku-project.github.io/mirai-kyushoku/`;
 
   if (navigator.share) {
     navigator.share({ text }).catch(() => {});

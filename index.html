@@ -1425,8 +1425,8 @@
       <div style="height:12px"></div>
       <div class="pill-row" id="period-pills">
         <button class="pill" data-period="3">3ヶ月</button>
-        <button class="pill" data-period="6">半年</button>
-        <button class="pill active" data-period="12">1年間</button>
+        <button class="pill active" data-period="6">半年</button>
+        <button class="pill" data-period="12">1年間</button>
       </div>
     </div>
 
@@ -3191,7 +3191,7 @@ function trackEvent(name) {
   }
 }
 
-let state = { students: 500, freq: 1, period: 12, school: '' };
+let state = { students: 500, freq: 1, period: 6, school: '' };
 let results = null;
 let currentMenu = null;   // 献立シミュレーターで選ばれた献立（未使用なら null → レポートに献立を載せない）
 

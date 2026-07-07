@@ -1254,38 +1254,88 @@
       position: static;
       width: 100%;
       background: #fff;
-      padding: 10mm 14mm;
     }
   }
   @page { margin: 0; }
-  #report-page { font-size: 9.3pt; color: var(--ink); line-height: 1.5; }
+  #report-page { font-size: 9.3pt; color: var(--ink); line-height: 1.55; }
+  #report-page .rp-page { padding: 12mm 14mm; page-break-after: always; break-after: page; }
+  #report-page .rp-page:last-child { page-break-after: auto; break-after: auto; }
   #report-page .rp-sec { break-inside: avoid; page-break-inside: avoid; }
+  #report-page .rp-pagehead {
+    font-size: 8pt; color: var(--green-deep); letter-spacing: 0.14em;
+    border-bottom: 1.4pt solid var(--green); padding-bottom: 3px; margin-bottom: 10px;
+    display: flex; justify-content: space-between;
+  }
   #report-page .rp-head {
     text-align: center;
     border-bottom: 2px solid var(--green);
     padding-bottom: 8px;
     margin-bottom: 8px;
   }
-  #report-page .rp-head .rp-eyebrow { font-size: 8pt; color: var(--green); letter-spacing: 0.18em; }
-  #report-page .rp-head h1 { font-size: 16pt; color: var(--green-deep); font-weight: 700; margin-top: 2px; }
-  #report-page .rp-head .rp-subtitle { font-size: 8.8pt; color: var(--ink-soft); margin-top: 3px; }
-  #report-page .rp-meta { text-align: center; font-size: 8.4pt; color: var(--ink-soft); margin-bottom: 7px; }
+  #report-page .rp-head .rp-eyebrow { font-size: 8pt; font-weight: 700; color: var(--green-deep); letter-spacing: 0.18em; }
+  #report-page .rp-head h1 { font-size: 16.5pt; color: var(--green-deep); font-weight: 700; margin-top: 2px; }
+  #report-page .rp-head .rp-subtitle { font-size: 9pt; color: #5f584a; margin-top: 3px; }
+  #report-page .rp-meta { text-align: center; font-size: 8.4pt; color: #5f584a; margin-bottom: 7px; }
   #report-page .rp-fillin {
     display: flex; justify-content: space-between; gap: 18px;
-    font-size: 8.3pt; color: var(--ink-soft);
-    border-top: 1pt dotted var(--line); border-bottom: 1pt dotted var(--line);
+    font-size: 8.3pt; color: #5f584a;
+    border-top: 1pt dotted #b9b2a0; border-bottom: 1pt dotted #b9b2a0;
     padding: 4px 2px; margin-bottom: 8px;
   }
   #report-page h2 {
-    font-size: 9.6pt;
+    font-size: 9.8pt;
     color: #fff;
-    background: var(--green);
+    background: var(--green-deep);
     border-radius: 999px;
     display: inline-block;
     padding: 2px 15px;
     margin: 9px 0 5px;
     font-weight: 700;
   }
+  #report-page .rp-proposal-box {
+    border: 1.6pt solid var(--green-deep);
+    border-radius: 9px;
+    background: #f2f6ee;
+    padding: 9px 13px;
+    font-size: 10.2pt;
+    line-height: 1.7;
+  }
+  #report-page .rp-plan { margin: 3px 0 0; padding: 0; list-style: none; }
+  #report-page .rp-plan li {
+    display: flex; gap: 10px; padding: 3.5px 0;
+    border-bottom: 1pt dotted #cfc8b6; font-size: 9.2pt;
+  }
+  #report-page .rp-plan li:last-child { border-bottom: none; }
+  #report-page .rp-plan .k {
+    flex-shrink: 0; width: 62px; font-weight: 700; color: var(--green-deep);
+  }
+  #report-page .rp-ask {
+    border: 1.2pt solid var(--green-soft);
+    border-radius: 9px; background: #fbf9f1;
+    padding: 8px 13px; font-size: 9.4pt; line-height: 1.7;
+  }
+  #report-page .rp-qa { margin-top: 6px; }
+  #report-page .rp-qa .q {
+    font-size: 9.6pt; font-weight: 700; color: var(--green-deep);
+    margin-top: 8px;
+  }
+  #report-page .rp-qa .q::before { content: "Q. "; }
+  #report-page .rp-qa .a { font-size: 9.1pt; margin-top: 1px; }
+  #report-page .rp-qa .a::before { content: "A. "; font-weight: 700; color: var(--terra); }
+  #report-page .rp-cases-list { margin: 3px 0 0; padding: 0; list-style: none; }
+  #report-page .rp-cases-list li {
+    font-size: 9.1pt; padding: 2.5px 0 2.5px 13px; position: relative;
+  }
+  #report-page .rp-cases-list li::before {
+    content: ""; position: absolute; left: 0; top: 0.72em;
+    width: 6px; height: 6px; border-radius: 50%; background: var(--green);
+  }
+  #report-page .rp-issuer {
+    margin-top: 10px; border-top: 1.2pt solid var(--line); padding-top: 7px;
+    display: flex; gap: 16px; align-items: center;
+  }
+  #report-page .rp-issuer .rp-issuer-text { flex: 1; font-size: 8.8pt; }
+  #report-page .rp-issuer .rp-issuer-text .nm { font-weight: 700; color: var(--green-deep); font-size: 9.4pt; }
   #report-page h2 .h2-sub { font-weight: 400; font-size: 8.6pt; opacity: 0.92; }
   #report-page p { margin: 0; }
   #report-page .rp-lead { font-size: 9.2pt; }
@@ -1299,27 +1349,27 @@
   }
   #report-page .rp-tile .t { font-size: 9pt; font-weight: 700; color: var(--green-deep); }
   #report-page .rp-tile .v { font-size: 12.5pt; font-weight: 700; color: var(--green-deep); }
-  #report-page .rp-tile .c { font-size: 8pt; color: var(--ink-soft); margin-top: 1px; }
+  #report-page .rp-tile .c { font-size: 8pt; color: #5f584a; margin-top: 1px; }
   #report-page .rp-assure .rp-tile { text-align: left; }
   #report-page .rp-assure .rp-tile .t::before { content: "✓ "; color: var(--green); }
-  #report-page .rp-assure .rp-tile .d { font-size: 8.1pt; color: var(--ink-soft); margin-top: 2px; line-height: 1.45; }
-  #report-page .rp-basis { font-size: 7.7pt; color: var(--ink-soft); margin-top: 4px; }
+  #report-page .rp-assure .rp-tile .d { font-size: 8.3pt; color: var(--ink); margin-top: 2px; line-height: 1.5; }
+  #report-page .rp-basis { font-size: 7.9pt; color: #6b6355; margin-top: 4px; }
   #report-page .rp-menu { background: var(--cream); border-radius: 9px; padding: 8px 12px; }
   #report-page .rp-menu ul { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 0 0 5px; }
   #report-page .rp-menu li { font-size: 8.8pt; font-weight: 700; color: var(--green-deep); background: #fff; border: 1pt solid var(--green-soft); border-radius: 999px; padding: 1px 11px; }
   #report-page .rp-menu-comment { font-size: 8.7pt; }
-  #report-page .rp-menu-source { font-size: 7.6pt; color: var(--ink-soft); margin-top: 3px; }
+  #report-page .rp-menu-source { font-size: 7.8pt; color: #6b6355; margin-top: 3px; }
   #report-page .rp-cases { font-size: 8.7pt; }
-  #report-page .rp-tags-line { font-size: 8.2pt; color: var(--ink-soft); margin-top: 5px; }
+  #report-page .rp-tags-line { font-size: 8.4pt; color: #5f584a; margin-top: 6px; }
   #report-page .rp-start { display: flex; gap: 16px; align-items: center; margin-top: 2px; }
   #report-page .rp-start-text { flex: 1; }
   #report-page .rp-start-text p { font-size: 9pt; }
   #report-page .rp-contact { font-size: 8.6pt; color: var(--green-deep); margin-top: 4px; }
   #report-page .rp-qr { text-align: center; }
   #report-page .rp-qr img { width: 76px; height: 76px; display: block; }
-  #report-page .rp-qr span { font-size: 7.3pt; color: var(--ink-soft); display: block; margin-top: 2px; }
-  #report-page .rp-closing { text-align: center; font-size: 9pt; color: var(--green-deep); font-weight: 700; margin-top: 9px; }
-  #report-page .rp-note { font-size: 7.7pt; color: var(--ink-soft); margin-top: 8px; border-top: 1pt solid var(--line); padding-top: 6px; }
+  #report-page .rp-qr span { font-size: 7.4pt; color: #6b6355; display: block; margin-top: 2px; }
+  #report-page .rp-closing { text-align: center; font-size: 9.4pt; color: var(--green-deep); font-weight: 700; margin-top: 10px; }
+  #report-page .rp-note { font-size: 7.9pt; color: #6b6355; margin-top: 8px; border-top: 1pt solid var(--line); padding-top: 6px; }
 
   /* ── 献立シミュレーター(スマホ縦並び) ── */
   @media (max-width: 480px) {
@@ -2428,20 +2478,36 @@
 
 <!-- ─────────────── print report ─────────────── -->
 <div id="report-page">
+<div class="rp-page">
   <div class="rp-head">
-    <div class="rp-eyebrow">みんなの未来給食 未来シミュレーター</div>
-    <h1>未来給食 検討資料</h1>
-    <div class="rp-subtitle">月に1回の植物性給食を、学校で検討するための資料</div>
+    <div class="rp-eyebrow">みんなの未来給食</div>
+    <h1>未来給食 導入のご提案</h1>
+    <div class="rp-subtitle">月に1回・希望制の植物性給食の試行実施について</div>
   </div>
   <div class="rp-meta" id="rp-meta">—</div>
   <div class="rp-fillin">
-    <span>担当者：________________________</span>
-    <span>提出先：________________________</span>
+    <span>ご提案先：________________________</span>
+    <span>ご担当者：________________________</span>
+  </div>
+
+  <div class="rp-sec">
+    <h2>ご提案の要旨</h2>
+    <p class="rp-proposal-box">月に1回・<b>希望制</b>の植物性給食「未来給食」の<b>試行実施</b>をご提案します。アレルギーや宗教、家庭の方針にかかわらず、みんなが同じ食卓を囲める日をつくる取り組みです。まずは<b>学期に1回のお試し実施</b>からでも構いません。</p>
   </div>
 
   <div class="rp-sec">
     <h2>みんなの未来給食とは</h2>
-    <p class="rp-lead">月に1回、動物性の食材を使わず<b>植物性中心</b>でつくる給食です。目指しているのは「全員が同じものを食べること」ではなく、<b>「選べること」</b>。アレルギー・宗教・家庭の方針にかかわらず、みんなが同じ食卓を囲める日をつくり、食育・多様性教育の教材にもなります。</p>
+    <p class="rp-lead">月に1回、動物性の食材を使わず<b>植物性中心</b>でつくる給食です。目指しているのは「全員が同じものを食べること」ではなく、<b>「選べること」</b>。「自分だけ別メニュー」だった子が、みんなと同じものを選べる日をつくり、食育・多様性教育の教材にもなります。</p>
+  </div>
+
+  <div class="rp-sec">
+    <h2>提案する実施形態</h2>
+    <ul class="rp-plan">
+      <li><span class="k">頻度</span><span>月に1回（まずは学期に1回のお試し実施からでも可）</span></li>
+      <li><span class="k">方式</span><span>希望制 ── 食べたい子ども・ご家庭が選ぶ形で、強制はしません</span></li>
+      <li><span class="k">献立</span><span>栄養教諭と相談のうえ、文部科学省「学校給食摂取基準」を満たす形で作成</span></li>
+      <li><span class="k">食材</span><span>カレー・ハンバーグなど定番メニュー中心。大豆ミートは常温保存でき、精肉より安価な場合もあります</span></li>
+    </ul>
   </div>
 
   <div class="rp-sec">
@@ -2453,17 +2519,51 @@
     </div>
   </div>
 
+  <div class="rp-sec">
+    <h2>お願いしたいこと</h2>
+    <p class="rp-ask">まずは、栄養教諭・給食ご担当の先生を交えた<b>献立検討の機会（30分ほど）</b>をいただけないでしょうか。献立例・食材の調達・衛生管理に関する資料は、当プロジェクトがご用意します。</p>
+  </div>
+
+  <div class="rp-issuer">
+    <div class="rp-issuer-text">
+      <span class="nm">提案者：みんなの未来給食プロジェクト</span><br>
+      ご連絡先：japan@animalallianceasia.org　（2枚目以降：ご懸念へのお答え・効果の試算・実施実績）
+    </div>
+  </div>
+</div><!-- /page1 -->
+
+<div class="rp-page">
+  <div class="rp-pagehead"><span>未来給食 導入のご提案</span><span>2 / 3</span></div>
+
+  <div class="rp-sec">
+    <h2>よくいただくご懸念へのお答え</h2>
+    <div class="rp-qa">
+      <p class="q">栄養は足りますか？</p>
+      <p class="a">必要なのは“お肉”そのものではなく、たんぱく質です。水で戻した大豆ミートのたんぱく質はお肉とほぼ同等です（文部科学省「日本食品標準成分表2020年版」より）。アメリカ・カナダ・イギリスの栄養士団体も「きちんと計画された植物性の食事は、成長期を含むあらゆる年代で健康的」との見解を示しており、国内の実施校でも学校給食摂取基準を満たす献立で提供されています。</p>
+      <p class="q">アレルギーへの対応は？</p>
+      <p class="a">食物アレルギーの主な原因の<b>約70%は卵・乳・魚など動物性の食材</b>です（n=2,954）。動物性を使わないことで主要な原因をはじめから避けられ、除去食対応の負担軽減にもつながります。※大豆・小麦は使用するため、すべてのアレルギーに対応できるわけではありません。</p>
+      <p class="q">費用は増えませんか？</p>
+      <p class="a">大豆ミートは精肉より安価な場合が多く、食材費を抑えられます。乾燥品は常温で長期保存でき、在庫管理も容易です。</p>
+      <p class="q">調理現場の負担は？</p>
+      <p class="a">生肉のような厳格な温度管理・交差汚染対策が不要になります。カレーや麻婆豆腐など定番メニューがそのままの手順で作れ、特別な調理技術は必要ありません。</p>
+    </div>
+  </div>
+
   <div class="rp-sec" id="rp-menu-section" style="display:none">
-    <h2>提案する献立 <span class="h2-sub" id="rp-menu-pref"></span></h2>
+    <h2>ご参考：献立例 <span class="h2-sub" id="rp-menu-pref"></span></h2>
     <div class="rp-menu">
       <ul id="rp-menu-dishes"></ul>
       <p class="rp-menu-comment" id="rp-menu-comment">—</p>
       <p class="rp-menu-source" id="rp-menu-source">—</p>
     </div>
   </div>
+</div><!-- /page2 -->
+
+<div class="rp-page">
+  <div class="rp-pagehead"><span>未来給食 導入のご提案</span><span>3 / 3</span></div>
 
   <div class="rp-sec">
-    <h2>未来にのこせる資源 <span class="h2-sub">（概算）</span></h2>
+    <h2>環境面の効果 <span class="h2-sub">（1枚目記載の条件での概算）</span></h2>
     <div class="rp-grid">
       <div class="rp-tile"><div class="t">水資源</div><div class="v" id="rp-water">—</div><div class="c" id="rp-water-c">—</div></div>
       <div class="rp-tile"><div class="t">土地</div><div class="v" id="rp-land">—</div><div class="c" id="rp-land-c">—</div></div>
@@ -2474,16 +2574,21 @@
 
   <div class="rp-sec">
     <h2>すでに実施している学校・自治体</h2>
-    <p class="rp-cases">浅川小学校（東京・公立小／月1回）　▷　匝瑳市 市内全13小中学校（千葉）　▷　One Table Day 全国の保育園・こども園　▷　海外：韓国・ニューヨーク市・ポルトガル。<br>食物アレルギーの主な原因の<b>約70%は卵・乳など動物性</b>（n=2,954）。動物性を使わないことで主要因をはじめから避けられます（すべてのアレルギーに対応できるわけではありません）。</p>
+    <ul class="rp-cases-list">
+      <li><b>八王子市立浅川小学校</b>（東京・公立）── 2021年〜、月1回の「エブリワン給食」を実施</li>
+      <li><b>千葉県匝瑳市</b> ── 2026年、市内全13の小中学校で精進料理給食を一斉実施</li>
+      <li><b>One Table Day</b>（全国の保育園・こども園）── 2022年〜、兵庫から岩手・福島・埼玉・新潟へ拡大</li>
+      <li><b>海外</b> ── 韓国ソウル「グリーン給食の日」（2021年〜）／ニューヨーク市 毎週金曜（2023年〜）／ポルトガル 法律で「選べる権利」を保障（2017年）</li>
+    </ul>
     <p class="rp-tags-line">育てる価値：健康／多様性／環境／思いやり／日本の食文化／食育　・　SDGs：2・3・6・12・13・15 に貢献</p>
   </div>
 
   <div class="rp-sec">
-    <h2>はじめ方</h2>
+    <h2>ご相談・お問い合わせ</h2>
     <div class="rp-start">
       <div class="rp-start-text">
-        <p>① 月に1回・希望制から、小さく始める。<br>② 栄養教諭と、地域でとれる食材を生かした献立を相談する。<br>③ 下記より、お気軽にご相談ください。</p>
-        <p class="rp-contact">ご相談：japan@animalallianceasia.org<br>シミュレーター：smile-kyushoku-project.github.io/mirai-kyushoku</p>
+        <p>献立づくり・食材の調達・実施校の事例紹介・試食のご相談など、お気軽にご連絡ください。学校のご状況に合わせて、無理のない始め方を一緒に考えます。</p>
+        <p class="rp-contact">みんなの未来給食プロジェクト　japan@animalallianceasia.org<br>シミュレーター：smile-kyushoku-project.github.io/mirai-kyushoku</p>
       </div>
       <div class="rp-qr">
         <img src="data:image/png;base64,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" alt="未来シミュレーターQRコード">
@@ -2493,7 +2598,8 @@
     <p class="rp-closing">月に1回の一食が、子どもたちの「選べる未来」への小さな贈りものになります。</p>
   </div>
 
-  <p class="rp-note">本レポートの数値は、公表されている環境研究にもとづく教育用の概算です。実際の効果は献立・食材の産地・地域の給食事情によって異なります。</p>
+  <p class="rp-note">本提案書の数値は、公表されている環境研究にもとづく教育用の概算です。実際の効果は献立・食材の産地・地域の給食事情によって異なります。</p>
+</div><!-- /page3 -->
 </div>
 
 <script>
